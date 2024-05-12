@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="musix.css">
+</head>
+<body>
+  <div class="side-menu">
+    <div class="naruto">
+      <h2 style="color: #000;" class="play-head"><div class="h">All Songs</div>  <div class="head-drop"><img src="./images/arrow_drop_down_FILL0_wght400_GRAD0_opsz24.svg" class="drop-img" onclick="select()" alt=""></div></h2>
+    <div class="options">
+      <div class="songs" value="ALLSONGS">All Songs</div>
+      <div class="playlist" value="FAVOURITE">Favourite</div>
+    </div>
+    </div>
+      <div class="lets">
+        <!-- Dynamic content -->
+      </div>
+  </div>
+ <div class="main-wrapper">
+  <div class="middle-wrapper">
+    <div class="top-up">
+      <div class="logo"> <img src="./images/letter-g (1).png" alt=""> <span>x-Musix</span></div>
+      <div class="menu-btn"><img src="./images/queue_music_FILL0_wght400_GRAD0_opsz24.png" class="menu-img" alt=""></div>
+     
+    </div>
+
+    <div class="detail">
+      <img src="./images/multimedia.png" alt="" class="songImg">
+      <div class="song-detail">
+        <h1 class="title">busy</h1>
+        <div class="artist">daniel</div>
+      </div>
+    </div>
+    <audio src=""></audio>
+    
+  </div> 
+  <div class="player">
+    <div class="top">
+      <div class="startT">2:50</div>
+      <div class="range"><input type="range" name="duration" id="duration"></div>
+      <div class="stopT">2:50</div>
+    </div>
+    <div class="player-btn">
+      <div class="btn-s"><img src="./images/shuffle_FILL0_wght400_GRAD0_opsz24.png" onclick="shuff()" alt=""> <!-- <img src="./images/repeat_on_FILL0_wght400_GRAD0_opsz24.png" alt=""> --> </div>
+      <div class="yet">
+      <div class="yes">
+        <div class="btn"><img src="./images/skip_previous_FILL0_wght400_GRAD0_opsz24.png" alt="" onclick="back()"></div>
+      <div class="play-btn play btn" ><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" class="playBtn" onclick="play()"></div>
+      <div class="btn"><img src="./images/skip_next_FILL0_wght400_GRAD0_opsz24.png" alt="" onclick="next()"></div>
+      </div>
+      </div>
+      <div class="vol">
+        <img src="./images/volume_up_FILL0_wght400_GRAD0_opsz24.png" alt="">
+        <input type="range" class="range" name="volume" id="volume">
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+
+  <script src="musix.js"></script>
+</body>
+</html>

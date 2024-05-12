@@ -1,0 +1,11 @@
+{
+  "name": "music-player",
+  "version": "1.0.0",
+  "description": "a GeNeSix site",
+  "main": "index.js",
+  "scripts": {
+    "test": "node start"
+  },
+  "author": "GeNeSix",
+  "license": "ISC"
+}

@@ -1,0 +1,73 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Login Page Styles */
+.login-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#login-form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+#login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+  margin-top: 50px;
+}
+
+/* Clinic Notes Styles */
+.clinic-notes ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Drug Charts Styles */
+.drug-charts table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.drug-charts th, .drug-charts td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.drug-charts th {
+  background-color: #f2f2f2;
+}
+
+/* Nurse Observations Styles */
+.nurse-observations ul {
+  list-style-type: none;
+  padding: 0;
+}
