@@ -38,19 +38,25 @@ var playlistValue = document.querySelector('.playlist');
 var listPlaying = document.querySelector('.h');
 
 function playAll(){
-  listPlayingV = 'all';
-  listPlaying.innerHTML = 'All Songs';
-  songs.innerHTML = (mySongs.length === 0) ? '' : mySongs.forEach((song, index) => {
+  songs.innerHTML = '';
+  if(listPlayingV === 'favourite'){
+    listPlaying.innerHTML = 'All Songs';
+    mySongs.forEach((song, index) => {
+
+      console.log(index);
+
+      songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='#'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+      
+    });
+    listPlayingV = 'all';
+   }
   
-    songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
-    
-  });
 }
 
 function playFavourite(){
   listPlayingV = 'favourite';
   listPlaying.innerHTML = 'Favourite';
-  songs.innerHTML = (favourite.length === 0) ? '' : favourite.forEach((song, index) => {
+  songs.innerHTML = (favourite.length === 0) ? '<div>You have no favourite songs</div>' : favourite.forEach((song, index) => {
   
     songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
     
@@ -229,6 +235,7 @@ window.addEventListener('keydown', (e)=>{
 
   function songList(){
     
+   if(listPlayingV === 'all'){
     mySongs.forEach((song, index) => {
 
       console.log(index);
@@ -236,6 +243,7 @@ window.addEventListener('keydown', (e)=>{
       songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
       
     });
+   }
     
   }
 
