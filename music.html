@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>Document</title>
   <link rel="stylesheet" href="musix.css">
 </head>
@@ -11,8 +12,8 @@
     <div class="naruto">
       <h2 style="color: #000;" class="play-head"><div class="h">All Songs</div>  <div class="head-drop"><img src="./images/arrow_drop_down_FILL0_wght400_GRAD0_opsz24.svg" class="drop-img" onclick="select()" alt=""></div></h2>
     <div class="options">
-      <div class="songs" value="ALLSONGS">All Songs</div>
-      <div class="playlist" value="FAVOURITE">Favourite</div>
+      <div class="songs" value="ALLSONGS" onclick="playAll()">All Songs</div>
+      <div class="playlist" value="FAVOURITE" onclick="playFavourite()">Favourite</div>
     </div>
     </div>
       <div class="lets">
@@ -35,6 +36,7 @@
       </div>
     </div>
     <audio src=""></audio>
+    <input onclick="getMusicFile()" type="file" accept="*/folder">
     
   </div> 
   <div class="player">

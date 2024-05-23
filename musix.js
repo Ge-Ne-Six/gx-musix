@@ -11,6 +11,7 @@ let i = 0;
 let shuffled = [];
 let favourite = []
 let shuffle = 'false';
+let listPlayingV = 'all';
 
 var headDrop = document.querySelector('.head-drop');
 var dropImg = document.querySelector('.drop-img');
@@ -28,11 +29,33 @@ var sideMenu = document.querySelector('.side-menu');
 let songs = document.querySelector('.lets');
 var stopT = document.querySelector('.stopT')
 var menuImge = document.querySelector('.menu-btn').addEventListener('click', ()=>{
-  // sideMenu.style.display = 'none';
 
   (sideMenu.style.display === 'none') ? sideMenu.style.display = 'block' : sideMenu.style.display = 'none';
   
-})
+});
+var songsValue = document.querySelector('.songs');
+var playlistValue = document.querySelector('.playlist');
+var listPlaying = document.querySelector('.h');
+
+function playAll(){
+  listPlayingV = 'all';
+  listPlaying.innerHTML = 'All Songs';
+  songs.innerHTML = (mySongs.length === 0) ? '' : mySongs.forEach((song, index) => {
+  
+    songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+    
+  });
+}
+
+function playFavourite(){
+  listPlayingV = 'favourite';
+  listPlaying.innerHTML = 'Favourite';
+  songs.innerHTML = (favourite.length === 0) ? '' : favourite.forEach((song, index) => {
+  
+    songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+    
+  });
+}
 
 
   // let audio = document.querySelector('audio');
@@ -213,6 +236,7 @@ window.addEventListener('keydown', (e)=>{
       songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
       
     });
+    
   }
 
   songList();
@@ -299,4 +323,11 @@ function addToFavourite(ix){
 
 
   console.log(favourite);
+}
+
+
+// get music folder
+
+async function getMusicFile(){
+  
 }
