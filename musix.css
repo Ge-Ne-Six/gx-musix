@@ -309,7 +309,7 @@ body{
   outline: none;
   background-color: rgba(128, 128, 128, 0.033);
 }
-.input-wrapper input:focus ~ .input-wrapper{
+.input-wrapper:focus-within{
   box-shadow: 0px 0px 4px 0px;
 }
 .search-img{
