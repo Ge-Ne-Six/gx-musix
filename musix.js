@@ -13,6 +13,7 @@ let favourite = []
 let shuffle = 'false';
 let listPlayingV = 'all';
 
+var mainWrapper = document.querySelector('.detail');
 var headDrop = document.querySelector('.head-drop');
 var dropImg = document.querySelector('.drop-img');
 var option = document.querySelector('.options');
@@ -36,31 +37,43 @@ var menuImge = document.querySelector('.menu-btn').addEventListener('click', ()=
 var songsValue = document.querySelector('.songs');
 var playlistValue = document.querySelector('.playlist');
 var listPlaying = document.querySelector('.h');
+ var imgToggle =document.querySelector('.img-toggle');
+
+
+ mainWrapper.addEventListener('click', ()=> {
+  sideMenu.style.display = 'none';
+ })
 
 function playAll(){
-  songs.innerHTML = '';
   if(listPlayingV === 'favourite'){
+    listPlayingV = 'all';
     listPlaying.innerHTML = 'All Songs';
+
+    songs.innerHTML = '';
+
     mySongs.forEach((song, index) => {
-
-      console.log(index);
-
-      songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='#'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+  
+      songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' class="add-to-fav" alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
       
     });
-    listPlayingV = 'all';
-   }
+
+  }
   
 }
 
 function playFavourite(){
   listPlayingV = 'favourite';
   listPlaying.innerHTML = 'Favourite';
-  songs.innerHTML = (favourite.length === 0) ? '<div>You have no favourite songs</div>' : favourite.forEach((song, index) => {
+  console.log(listPlayingV);
+
+  songs.innerHTML = '';
   
-    songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+  favourite.forEach((song, index) => {
+
+    songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='removeFromFavourite(${index}, this)' class="add-to-fav" alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
     
   });
+
 }
 
 
@@ -110,19 +123,18 @@ window.addEventListener('keydown', (e)=>{
 
   function next(){
 
-    // console.log(mySongs.length);
-    console.log(i);
+   
 
     if(shuffle === 'false'){
 
       if(i < mySongs.length -1){
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
   
         i++;
         music.src = mySongs[i].path;
         songTitle.innerHTML = mySongs[i].name;
         artist.innerHTML = mySongs[i].artist;
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
         
         
       }else{
@@ -130,19 +142,19 @@ window.addEventListener('keydown', (e)=>{
         music.src = mySongs[i].path;
         songTitle.innerHTML = mySongs[i].name;
         artist.innerHTML = mySongs[i].artist;
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
       }
 
     }else{
 
       if(i < shuffled.length -1){
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
   
         i++;
         music.src = shuffled[i].path;
         songTitle.innerHTML = shuffled[i].name;
         artist.innerHTML = mySongs[i].artist;
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
         
         
       }else{
@@ -150,7 +162,7 @@ window.addEventListener('keydown', (e)=>{
         music.src = shuffled[i].path;
         songTitle.innerHTML = shuffled[i].name;
         artist.innerHTML = shuffled[i].artist;
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
       }
 
     }
@@ -169,7 +181,7 @@ window.addEventListener('keydown', (e)=>{
         songTitle.innerHTML = mySongs[i].name;
         artist.innerHTML = mySongs[i].artist;
 
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
       }else{
 
        i--;
@@ -177,7 +189,7 @@ window.addEventListener('keydown', (e)=>{
         songTitle.innerHTML = mySongs[i].name;
         artist.innerHTML = mySongs[i].artist;
 
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
 
       }
 
@@ -189,7 +201,7 @@ window.addEventListener('keydown', (e)=>{
         songTitle.innerHTML = shuffled[i].name;
         artist.innerHTML = shuffled[i].artist;
 
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
       }else{
 
        i--;
@@ -197,7 +209,7 @@ window.addEventListener('keydown', (e)=>{
         songTitle.innerHTML = shuffled[i].name;
         artist.innerHTML = shuffled[i].artist;
 
-        (value === 'true') ? music.play() : console.log('next');
+        (value === 'true') ? music.play() : '';
 
       }
 
@@ -238,9 +250,7 @@ window.addEventListener('keydown', (e)=>{
    if(listPlayingV === 'all'){
     mySongs.forEach((song, index) => {
 
-      console.log(index);
-
-      songs.innerHTML += `<div class='song-div' onclick='playSong(${index})'><a href='${song.path}'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index})' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+      songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
       
     });
    }
@@ -268,8 +278,6 @@ window.addEventListener('keydown', (e)=>{
 
   function shuffleSongs(songs) {
 
-    shuffle = 'true';
-
     for (let i = songs.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
 
@@ -289,8 +297,21 @@ window.addEventListener('keydown', (e)=>{
 
 
 function shuff(){
+  if(shuffle === 'false'){
+    shuffle = 'true';
+    imgToggle.src = './images/shuffle_on_FILL0_wght400_GRAD0_opsz24.png';
+     if(listPlayingV === 'favourite'){
+      shuffleSongs(favourite);
+     }else{
+      shuffleSongs(mySongs);
+     }
+  }else{
+    shuffle = 'false';
+    imgToggle.src = './images/shuffle_FILL0_wght400_GRAD0_opsz24.png';
+    shuffled = [];
+  }
 
-  shuffleSongs(mySongs);
+ 
 
 }
 
@@ -309,33 +330,27 @@ function select(){
 }
 
 // function to add to favourite playlist 
-
-function addToFavourite(ix){
+function addToFavourite(ix, imgElement) {
   let song = mySongs[ix];
 
-  if(favourite.length === 0){
+  // Check if the song is already in the favourites list
+  let songExists = favourite.some(favSong => favSong.path === song.path);
 
-    let done = favourite.push(song)
+  if (songExists) {
+    console.log(`The song "${song.path}" is already added to favourites!`);
+  } else {
     
-  }else{
-    for(i = 0; i < favourite.length; i++){
-      let theSong = favourite[i]
-      if(theSong.path === song.path){
-        console.log('This song has already been added');
-        alert('This song has already been added')
-      }else{
-        let done = favourite.push(song)
-      }
-    }
+    let addFav = favourite.push(song);
+     imgElement.src = './images/check.png'
+    console.log(`The song "${song.path}" has been added to favourites!`);
+    
   }
 
-
   console.log(favourite);
+
 }
 
-
-// get music folder
-
-async function getMusicFile(){
-  
+function removeFromFavourite(item){
+  favourite.splice(item);
+  console.log(favourite);
 }

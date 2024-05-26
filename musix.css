@@ -286,3 +286,6 @@ body{
   transition-timing-function: ease-out;
   transition-delay: 0s;
 }
+.btn, .btn-s{
+  cursor: pointer;
+}
