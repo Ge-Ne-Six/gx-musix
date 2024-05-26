@@ -38,7 +38,31 @@ var songsValue = document.querySelector('.songs');
 var playlistValue = document.querySelector('.playlist');
 var listPlaying = document.querySelector('.h');
  var imgToggle =document.querySelector('.img-toggle');
+var searchInput = document.querySelector('.search-inputs');
 
+searchInput.addEventListener('keydown', function(e){
+  let search = [];
+  let input = this.value
+  songs.innerHTML = ''
+
+  if(e.key){
+
+
+   let me =  mySongs.filter((song,index) => {
+
+    if(song.name.toLowerCase().includes(input) || song.artist.toLowerCase().includes(input) ){
+
+      songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' class="add-to-fav" alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+
+    }
+
+   })
+
+    console.log(me);
+
+  }
+
+})
 
  mainWrapper.addEventListener('click', ()=> {
   sideMenu.style.display = 'none';
@@ -285,7 +309,7 @@ window.addEventListener('keydown', (e)=>{
 
         shuffled.push(songs[i] || songs[j])
 
-      
+
     }
 
 
