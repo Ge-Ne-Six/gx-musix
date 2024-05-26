@@ -285,10 +285,8 @@ window.addEventListener('keydown', (e)=>{
 
         shuffled.push(songs[i] || songs[j])
 
-
+      
     }
-    
-    console.log(shuffled);
 
 
 
