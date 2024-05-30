@@ -6,12 +6,20 @@ const mySongs = [
   {name: 'T-Classic Nobody Fine Pass You', path: './music/T-Classic-Nobody-Fine-Pass-You.mp3', artist: 'T-Classic'}
 ];
 
-let i = 0;
-
+let i = localStorage.getItem('songIndex');
+if(!i){
+  i = 0
+}
 let shuffled = [];
-let favourite = []
+let favourite = JSON.parse(localStorage.getItem('fav'))
+if(!favourite){
+  favourite = []
+}
 let shuffle = 'false';
-let listPlayingV = 'all';
+let listPlayingV = localStorage.getItem('listValue');
+if(!listPlayingV){
+  listPlayingV = 'all'
+}
 
 var mainWrapper = document.querySelector('.detail');
 var headDrop = document.querySelector('.head-drop');
@@ -28,7 +36,8 @@ var playBtn = document.querySelector('.playBtn');
 let value = 'false';
 var sideMenu = document.querySelector('.side-menu');
 let songs = document.querySelector('.lets');
-var stopT = document.querySelector('.stopT')
+var stopT = document.querySelector('.stopT');
+let startT = document.querySelector('.startT');
 var menuImge = document.querySelector('.menu-btn').addEventListener('click', ()=>{
 
   (sideMenu.style.display === 'none') ? sideMenu.style.display = 'block' : sideMenu.style.display = 'none';
@@ -37,11 +46,17 @@ var menuImge = document.querySelector('.menu-btn').addEventListener('click', ()=
 var songsValue = document.querySelector('.songs');
 var playlistValue = document.querySelector('.playlist');
 var listPlaying = document.querySelector('.h');
- var imgToggle =document.querySelector('.img-toggle');
+var imgToggle =document.querySelector('.img-toggle');
 var searchInput = document.querySelector('.search-inputs');
+let loopRepeat = document.querySelector('.loop-repeat');
+let looping = localStorage.getItem('loop');
+if(!looping){
+  looping = 'none'
+}
+
+
 
 searchInput.addEventListener('keyup', function(e){
-  let search = [];
   let input = this.value
   songs.innerHTML = ''
 
@@ -80,12 +95,21 @@ function playAll(){
     songs.innerHTML = '';
 
     mySongs.forEach((song, index) => {
-  
-      songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' class="add-to-fav" alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+
+      let eggXist = favourite.some(favSong => favSong.path === song.path);
+      
+
+      if(eggXist){
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/check.png" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }  else{
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }
       
     });
 
   }
+
+  localStorage.setItem('listValue', listPlayingV);
   
 }
 
@@ -102,24 +126,47 @@ function playFavourite(){
     
   });
 
+  localStorage.setItem('listValue', listPlayingV)
+
 }
 
+window.addEventListener('load', function(){
+  if (listPlayingV === 'favourite') {
 
-  // let audio = document.querySelector('audio');
-  function showSongs(){
-    if(shuffle === 'false'){
-      music.src = mySongs[i].path;
-      songTitle.innerHTML = mySongs[i].name;
-      artist.innerHTML = mySongs[i].artist;
-    }else{
-      music.src = shuffled[i].path;
-      songTitle.innerHTML = shuffled[i].name;
-      artist.innerHTML = shuffled[i].artist;
-    }
+    listPlaying.innerHTML = 'Favourite';
+  console.log(listPlayingV);
+
+  songs.innerHTML = '';
+  
+  favourite.forEach((song, index) => {
+
+    songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='removeFromFavourite(${index}, this)' class="add-to-fav" alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
     
-  }
+  });
+    
+  } else {
+    
+    listPlaying.innerHTML = 'All Songs';
 
-  showSongs()
+    songs.innerHTML = '';
+
+    mySongs.forEach((song, index) => {
+
+      let eggXist = favourite.some(favSong => favSong.path === song.path);
+      
+
+      if(eggXist){
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/check.png" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }  else{
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }
+      
+    });
+
+  }
+})
+ 
+
 
 window.addEventListener('keydown', (e)=>{
   if(e.key === 'MediaPlayPause'){
@@ -130,6 +177,23 @@ window.addEventListener('keydown', (e)=>{
     back()
   }
 })
+
+
+ // let audio = document.querySelector('audio');
+ function showSongs(){
+  if(shuffle === 'false'){
+    music.src = mySongs[i].path;
+    songTitle.innerHTML = mySongs[i].name;
+    artist.innerHTML = mySongs[i].artist;
+  }else{
+    music.src = shuffled[i].path;
+    songTitle.innerHTML = shuffled[i].name;
+    artist.innerHTML = shuffled[i].artist;
+  }
+  
+}
+
+showSongs()
 
   function play(){
 
@@ -195,7 +259,7 @@ window.addEventListener('keydown', (e)=>{
 
     }
        
-
+    localStorage.setItem('songIndex', i)
    
   }
 
@@ -242,35 +306,47 @@ window.addEventListener('keydown', (e)=>{
       }
 
     }
+
+    localStorage.setItem('songIndex', i)
     
   }
 
-    music.addEventListener('ended', next)
+  music.addEventListener('ended', () => {
+    if(looping === 'none'){
+      next()
+    }else if(looping === 'one'){
+      music.play()
+    }
+  })
 
   music.addEventListener('loadeddata', () =>{
-    // setTime
     durationRange.setAttribute('max', music.duration);
+    let duMin = Math.floor(music.duration /  60);
+    let duSecs = Math.floor(music.duration % 60);
+
+    stopT.innerHTML = duMin+':'+duSecs;
   });
 
-  music.addEventListener('timeupdate', () =>{
+  music.addEventListener('timeupdate', () =>{ 
     durationRange.value = music.currentTime;
+    let mins = Math.floor(music.currentTime / 60);
+    let secs = Math.floor(music.currentTime) % 60;
+
+    startT.innerHTML = mins+':'+secs;
   })
 
-  durationRange.addEventListener('input', () =>{
+  durationRange.addEventListener('input', (e) =>{
    music.currentTime = durationRange.value
-
   })
 
-  // volume
-
-  music.addEventListener('volume', () =>{
-    
-    music.volume = volume.value;
-    
+  music.addEventListener('volume', ()=>{
+    // volume.setAttribute('max', music.volume) or
+    volume.value = music.volume
   })
 
-  volume.addEventListener('input', ()=>{
-    volume.value = music.volume;
+  volume.addEventListener('input', (e)=>{
+    music.volume = volume.value / 100
+    console.log(object);
   })
 
   function songList(){
@@ -278,7 +354,14 @@ window.addEventListener('keydown', (e)=>{
    if(listPlayingV === 'all'){
     mySongs.forEach((song, index) => {
 
-      songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;   
+      let eggXist = favourite.some(favSong => favSong.path === song.path);
+      
+
+      if(eggXist){
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/check.png" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }  else{
+        songs.innerHTML += `<div class='song-div'><a href='#' onclick='playSong(${index})'>${song.name}</a> <div class='all-side-imgs'><div class="side-play fav-icon"><img src="./images/add_FILL0_wght400_GRAD0_opsz24.svg" onclick='addToFavourite(${index}, this)' alt=""> <div class='add-fav'>Add to Favorite</div></div><div class="side-play"><img src="./images/play_arrow_FILL0_wght400_GRAD0_opsz24.svg" alt=""></div></div></div>`;
+      }
       
     });
    }
@@ -374,9 +457,47 @@ function addToFavourite(ix, imgElement) {
 
   console.log(favourite);
 
+  localStorage.setItem('fav', JSON.stringify(favourite))
+
 }
+
 
 function removeFromFavourite(item){
   favourite.splice(item);
   console.log(favourite);
+  localStorage.setItem('fav', JSON.stringify(favourite))
 }
+
+loopRepeat.addEventListener('click', () => {
+
+  if(looping === 'none'){
+    looping = 'once';
+    loopRepeat.src = './images/repeat_on_FILL0_wght400_GRAD0_opsz24.png' ;
+  }else if(looping === 'once'){
+    looping = 'one';
+    shuffle = 'true'
+    loopRepeat.src = './images/repeat_one_on_FILL0_wght400_GRAD0_opsz24.png';
+    shuff()
+  }else if(looping === 'one'){
+    looping = 'none'
+    loopRepeat.src = './images/volume_off_FILL0_wght400_GRAD0_opsz24.png' 
+  }
+
+  localStorage.setItem('loop', looping);
+
+})
+
+function check(){
+  if(looping === 'none'){
+    looping = 'once';
+    loopRepeat.src = './images/repeat_on_FILL0_wght400_GRAD0_opsz24.png' ;
+  }else if(looping === 'once'){
+    looping = 'one';
+    loopRepeat.src = './images/repeat_one_on_FILL0_wght400_GRAD0_opsz24.png';
+  }else if(looping === 'one'){
+    looping = 'none'
+    loopRepeat.src = './images/volume_off_FILL0_wght400_GRAD0_opsz24.png' 
+  }
+}
+
+check()

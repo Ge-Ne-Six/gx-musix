@@ -139,9 +139,6 @@ body{
   display: flex;
   flex-direction: column;
 }
-.btn-s img{
-  width: 30px;
-}
 .detail{
   text-align: center;
   padding-top: 20px;
@@ -322,4 +319,19 @@ body{
 }
 .search-img img{
   width: 15px;
+}
+.gifs{
+  border: none !important;
+  position: absolute;
+  bottom: 0px;
+  width: 50px;
+}
+.btn-s{
+  display: flex !important;
+  flex-direction: row;
+  /* justify-content: space-around; */
+}
+.btn-s img{
+  width: 20px;
+  margin-left: 20px;
 }
